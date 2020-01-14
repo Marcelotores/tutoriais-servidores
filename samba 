@@ -1,0 +1,60 @@
+Instalar o Samba (Mais um monte de pacotes) (UBUNTU)
+$ sudo apt install samba samba-common python-glade2 system-config-samba
+
+- Checar status do servidor
+$ sudo service smbd status
+
+- Criando as pastas para compartilhar (Podem ser criadas em qualquer lugar. Ex.: /home/marcelo)
+$ sudo mkdir arquivos-lab
+$ sudo mkdir arquivos-temporarios
+
+- Alterando as permissões das pastas 
+$ sudo chmod -R 755 ~/arquivos-lab
+$ sudo chmod -R 777 ~/arquivos-temporarios
+
+- Criar o usuário do sistema que acessará a pastas
+$ sudo adduser arquivos-lab
+
+- Criando o grupo
+$ sudo addgroup arquivos-lab
+
+- Adicionar o usuário ao grupo
+$ sudo usermod -a -G arquivos-lab arquivos-lab
+
+- Agora criar um usuário samba e definir uma senha
+$ sudo smbpasswd -a arquivos-lab
+
+- Alterando o proprietário da pasta
+$ sudo chown -R arquivos-lab:arquivos-lab ~/arquivos-lab
+
+- Criando o compartilhamento nas configurações do samba
+$ sudo vim /etc/samba/smb.conf
+
+- Criando dois compartilhamentos, um com autenticação e outro sem.
+- Adicionar as seguintes linhas ao final do arquivo de configuração.
+
+# compartilhamento com usário e senha
+[Share_lab]
+
+comment = Share para salvar arquivos do Lab
+path = /home/marcelo/arquivos-lab
+browseable = yes
+read only = no
+guest ok = no
+valid users = @arquivos-lab
+
+# compartilhamento aberto
+[Temporarios]
+
+comment = Share para salvar arquivos temporários
+path = /home/marcelo/arquivos-temporarios
+browseable = yes
+writable = yes
+guest ok = yes
+read only = no
+
+- Reiniciar o servidor samba
+$ sudo systemctl restart smbd
+
+- Para testar, vá até o seu explorador de arquivos, em redes e copie o ip deste servidor lá.
+Exemplo - (smb://172.25.137.71)

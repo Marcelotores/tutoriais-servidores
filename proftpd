@@ -1,0 +1,27 @@
+Instalar o servidor FTP proftpd (UBUNTU)
+
+$ sudo apt install proftpd
+
+Ver status do servidor
+$ /etc/init.d/proftpd status
+
+Alterar arquivo de configurações 
+
+$ vim /etc/proftpd/proftpd.conf 
+Modificar  
+UseIPv6 para off (A não ser que seja usado IPv6)
+ServerName "Nome do servidor" (Pode-se escolher qualquer nome)
+ServerType standalone 
+DefaultRoot ~ (Especifica qual diretório o usário terá acesso. Descomentar a linha caso seja o desejado)
+
+Restartar o servidor 
+sudo /etc/init.d/proftpd restart
+
+Configurar o cliente (Filezilla).
+Host: Ip do servidor (Computador onde está instalado o proftpd).
+Nome de usuário: O nome do usário do Computador no qual está instalado o servidor proftpd. (S.O)
+Senha: Senha do Computador (S.O)
+Porta: 21 (Se não for definida a porta 21 será a padrão)
+clica em Conexão rápida
+
+

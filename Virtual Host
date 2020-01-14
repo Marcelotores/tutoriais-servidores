@@ -1,0 +1,39 @@
+- Instalação e coniguração para Centos
+Instalar servidor apache
+$ yum install httpd
+Instalar navegador para terminal
+$ yum install lynx
+Habilitar apache na inicialização (Ubuntu já vem habilitado por padrão)
+$ systemctl enable httpd
+Iniciar o apache
+$ systemctl start httpd
+Ver se ele tá escutando na porta 80
+$ ss -ln | grep 80
+Habilitar o firewall para ele 
+$ firewall-cmd --add-service-http --permanent
+Editar arquivo de confiração do apache (alterar o diretório html para var)
+$ vim /etc/httpd/conf/httpd.conf
+Alterar o valor da variãvel "DocumentRoot" para "var/www"
+Reiniciar apache
+$ systemctl restart httpd
+Criar diretório para testar (exemplo: vhost1, vhost2)
+$ mkdir vhost1
+Criar um index.html em cada um deles para testar.
+Criar uma arquivo (com a extensão .conf ex.: vhost.conf) em /etc/httpd/conf.d de configuração para cada uma das suas pastas.
+vim /etc/httpd/conf.d/
+Conteúdo do arquivo
+<VirtualHost *:80>
+    ServerName www.vhost1.com.br
+    DocumentRoot "/var/www/vhost1"
+    //Outras configurações podem existir
+</VirtualHost>
+//Criar outros hosts para cada pasta criada em /var/www
+Configurar o arquivo de hosts local
+$ vim /etc/hosts
+acrescentar ao final do arquivo 127.0.0.1 www.vhost1.com.br (essa configuração é pra fazer localmente, mas pode ser feita via DNS)
+Ver resultado
+$ lynx www.vhost.com.br
+
+Se a pasta que tem a aplicação mudar de local (fora de www) então não irá funcionar devido ao contexto diferente implementado pelo Selinux (caso este esteja habilitado)
+
+ 
