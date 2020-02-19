@@ -1,0 +1,19 @@
+#### Postgresql (Versão 10)
+
+
+18.2.#### Server Setup and Operation
+
+## Criando um Cluster (Área de armazenamento de banco de dados no disco) de Banco de Dados 
+
+Não há local padrão para colocar os dados, mas /usr/local/pgsql/data ou /var/lib/pgsql/data são bastante utilizados.
+
+$ initdb -D /usr/local/pgsql/data
+ou
+$ pg_ctl -D /usr/local/pgsql/data/initdb
+
+## Antes de qualquer pessoa acessar o banco de dados, o servidor dever ser iniciado.
+$ postgres -D /usr/local/pgsql/data
+
+
+#### Principais diretórios Postgresql
+
