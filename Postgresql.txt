@@ -15,5 +15,4 @@ $ pg_ctl -D /usr/local/pgsql/data/initdb
 $ postgres -D /usr/local/pgsql/data
 
 
-#### Principais diretórios Postgresql
 
